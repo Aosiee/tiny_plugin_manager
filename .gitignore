@@ -1,2 +1,3 @@
 # Ignore the plugin_data.cfg inside the Tiny Plugin Manager res folder
 addons/tiny_plugin_manager/res/plugin_data.cfg
+res/plugin_data.cfg
