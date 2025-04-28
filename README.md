@@ -37,8 +37,7 @@ addons/tiny_plugin_manager/
 4.  After enabling, configure verbosity level if desired:
 	
 
-Go to:  
-**Project > Project Settings > tiny_plugins > plugin_manager > verbosity_level**
+Go to:  **Project > Project Settings > Tiny Plugins > Plugin Manager > Verbosity Level**
 
 ## How to Use
 
@@ -65,7 +64,7 @@ optional_dependencies=["Optional Example"] # Example optional dependency
 
 ## How Autoloads Are Handled
 
-If your plugin has **autoloads** under its own folder (`addons/<plugin_name>/`),  
+If your plugin has **autoloads** under its own folder and or subfolders (`addons/<plugin_name>/`),  
 Tiny Plugin Manager will:
 
 -   **Associate** those autoloads with the plugin
@@ -81,37 +80,17 @@ Tiny Plugin Manager will:
 
 ## Delegate Methods (Callbacks)
 
-You can add these methods inside your **plugin.gd** or **autoloads** to know when dependencies are ready.
+You can add these methods inside of your plugin's `plugin.gd` or `autoloads` to know when dependencies are ready.
 
-Method
+### Plugin Methods (Implement Within plugin.gd)
 
-Where to implement
+- `_on_dependencies_ready(dependencies: Array)` - Called after required dependencies are ready
+- `_on_optional_dependencies_ready(optional_dependencies: Array)` - After optional dependencies are ready
 
-Called when
+### Autoload Methods (Implement Within Autoload Scripts)
 
-`_on_dependencies_ready(dependencies: Array)`
-
-In plugin.gd
-
-After required dependencies are ready
-
-`_on_optional_dependencies_ready(optional_dependencies: Array)`
-
-In plugin.gd
-
-After optional dependencies are ready
-
-`_on_plugin_dependencies_ready(dependencies: Array)`
-
-In autoloads
-
-After required dependencies are ready
-
-`_on_plugin_optional_dependencies_ready(optional_dependencies: Array)`
-
-In autoloads
-
-After optional dependencies are ready
+- `_on_plugin_dependencies_ready(dependencies: Array)` - Called after required dependencies are ready
+- `_on_plugin_optional_dependencies_ready(optional_dependencies: Array)` - Called after optional dependencies are ready
 
 ### Example: In Plugin's `plugin.gd`
 
@@ -119,10 +98,10 @@ After optional dependencies are ready
 @tool
 extends EditorPlugin
 
-func _on_dependencies_ready():
+func _on_dependencies_ready(dependencies: Array):
 	print("Tiny Console: Required dependencies are ready!")
 
-func _on_optional_dependencies_ready():
+func _on_optional_dependencies_ready(optional_dependencies: Array):
 	print("Tiny Console: Optional dependencies are ready!")
 ```
 
@@ -140,7 +119,7 @@ func _on_plugin_optional_dependencies_ready():
 
 ## Manual Reload
 
-You can manually trigger a full plugin reload anytime by clicking the ** Reload Plugins** button in the Godot Editor toolbar.
+You can manually trigger a full plugin reload anytime by clicking the **Reload Plugins** button in the Godot Editor toolbar.
 
 -   If anything changed (plugins reordered, autoloads reordered), you will see a detailed summary popup.
 	
